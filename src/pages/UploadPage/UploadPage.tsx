@@ -9,6 +9,7 @@ export const UploadPage: React.FC = () => {
     const { file, handleFileChange, handleUpLoad } = useFileUpload ();
 
 
+
     return (
         <main className={styles.pages}>
 
@@ -29,11 +30,7 @@ export const UploadPage: React.FC = () => {
         </ Button>
         </ section>
 
-        {
-        error && <p className=styles.error}>
-        {error}
-        </ p>
-        }
+        {error && <p className=styles.error}> {error} </ p>}
 
         {file && (
             <section className={styles.preview}>

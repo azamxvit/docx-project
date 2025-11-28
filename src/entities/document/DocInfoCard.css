@@ -1,0 +1,20 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    background: #fafafa;
+    padding: 20px;
+    gap: 12px;
+    border: 1px solid #e3e3e3;
+    border-radius: 12px;
+}
+
+.title {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}

@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 export const useFileUpload = () => {
     const [file, setFile] = useState<File | null >(null);
-    const [idLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null >(null);
 
 
