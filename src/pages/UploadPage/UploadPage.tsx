@@ -1,39 +1,40 @@
 import React from 'react';
-import styles from './UploadPage.css';
+import './UploadPage.css';
 
-import { Button } from '@shared/ui/Button/Button';
-import { useFileUpload } from '@features/file-upload/useFileUpload.ts';
-import { DocInfoCard } from '@entities/document/DocInfoCard.tsx';
+import { Button } from '../../shared/components/Button';
+import { useFileUpload } from '../../features/file-upload/useFileUpload';
+import { DocInfoCard } from '../../entities/document/DocInfoCard';
 
 export const UploadPage: React.FC = () => {
-    const { file, handleFileChange, handleUpLoad } = useFileUpload ();
+    const { file, handleFileChange, upload, isLoading, error } = useFileUpload();
 
 
 
     return (
-        <main className={styles.pages}>
+        <main className="pages">
 
         <header>
-        <h1 className={styles.title}>Загрузка документа</ h1>
-        </ header>
+        <h1 className="title">Загрузка документа</h1>
+        </header>
 
-        <section className={styles.uploadSection}>
-        <input 
-        type="file"
-        accept=".docx"
-        onChange={handleFileChange}
-        className={styles.input}
-        />
+        <section className="uploadSection">
+                <input
+                    type="file"
+                    accept=".docx"
+                    onChange={handleFileChange}
+                    className="input"
+                    aria-label="Выберите файл .docx"
+                />
 
-        <Button disabled={isLoading}>
-            {isLoading ? "Обработка..." : "Загрузить и обработать"}
-        </ Button>
+                <Button disabled={isLoading} onClick={upload}>
+                        {isLoading ? "Обработка..." : "Загрузить и обработать"}
+                </Button>
         </ section>
 
-        {error && <p className=styles.error}> {error} </ p>}
+        {error && <p className="error">{error}</p>}
 
         {file && (
-            <section className={styles.preview}>
+            <section className="preview">
                 <DocInfoCard file={file} />
             </ section>
         )}
