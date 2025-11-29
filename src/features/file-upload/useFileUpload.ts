@@ -5,6 +5,7 @@ import type { ParsedDocInfo } from '../../entities/document/types';
 
 
 export const useFileUpload = () => {
+
     const [file, setFile] = useState<File | null >(null);
     const [parsedInfo, setParsedInfo] = useState<ParsedDocInfo | null>(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -14,12 +15,11 @@ export const useFileUpload = () => {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setError(null);
 
-
         const selected = e.target.files?.[0];
         if (!selected) return;
 
 
-        // accept both .docx and .doc; .doc will be allowed but parsing/filling is only supported for .docx
+        // такс, тут поддерживается оба формата, но парсинг только для .docx
         if (!selected.name.endsWith(".docx") && !selected.name.endsWith('.doc')) {
             setError("Поддерживаются только .docx и .doc файлы");
             return;
@@ -43,7 +43,7 @@ export const useFileUpload = () => {
                 setParsedInfo(info);
             }
 
-            // fake upload delay kept for UX
+            // чтобы потом улучшить UX
             await new Promise((resolve) => setTimeout(resolve, 300));
         }
 
@@ -70,7 +70,7 @@ export const useFileUpload = () => {
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 const downloadName = file.name.replace(/\.docx?$/i, '') + '_filled.docx';
-                
+
                 a.href = url;
                 a.download = downloadName;
                 document.body.appendChild(a);
