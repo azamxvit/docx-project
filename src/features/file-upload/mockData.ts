@@ -1,0 +1,9 @@
+export const MOCK_DATA = {
+  PROJECT_NUMBER: "199437",
+  DOCUMENT_TITLE: "Passport RoK Regulations Equipment. LPG Export Project",
+  INFORMATION_CLASSIFICATION: "Internal",
+  SUPPLIER_NAME: "ERREESSE CASPIAN VALVES LLP",
+  CONTRACT_NUMBER: "99573",
+  TAG_NUMBER: "A1-2210-ESV-036",
+  NOTES: "",
+};
