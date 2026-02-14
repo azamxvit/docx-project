@@ -1,73 +1,81 @@
-# React + TypeScript + Vite
+# Docx Web Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Status](https://img.shields.io/badge/status-active-success)
+![Tech](https://img.shields.io/badge/stack-Vite_|_React_|_TypeScript_|_FSD_|_Docxtemplater-blue)
 
-Currently, two official plugins are available:
+A robust client-side application for dynamic document generation and processing. Built with **Feature-Sliced Design (FSD)** architecture, this project enables users to parse DOCX templates, detect placeholders, fill them with data, and preview the results instantly without server-side processing.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Key Features
 
-## React Compiler
+- **Smart Document Processing**:
+  - **Template Engine**: Powered by `docxtemplater` to inject data into `.docx` files programmatically (`fillDocTemplate.ts`).
+  - **Placeholder Detection**: Automatically parses and identifies variable placeholders within uploaded documents (`parsePlaseholders.ts`).
+- **Feature-Sliced Design**:
+  - **Modular Architecture**: Strictly organized into **Entities** (Business Logic), **Features** (User Actions), and **Shared** (UI/Libs) layers for scalability.
+  - **Isolation**: Clean separation of concerns between UI components (`DocInfoCard`) and service logic (`DocumentService`).
+- **Client-Side Performance**:
+  - **Instant Preview**: Renders DOCX layouts directly in the browser using `renderPreview` logic.
+  - **Secure**: All file processing happens locally in the browser; no data is sent to external servers.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠 Tech Stack
 
-## Expanding the ESLint configuration
+- **Core**: React 18, TypeScript, Vite
+- **Architecture**: Feature-Sliced Design (FSD)
+- **Processing**:
+  - `docxtemplater` (Templating)
+  - `pizzip` (Zip manipulation)
+  - `docx-preview` / `mammoth` (Rendering)
+- **Styling**: CSS Modules, PostCSS
+- **State & Hooks**: Custom hooks (`useFileUpload`, `useAsync`)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ⚙️ Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1.  **Clone the repository**
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+    ```bash
+    git clone [https://github.com/azamxvit/docx-project.git](https://github.com/azamxvit/docx-project.git)
+    cd docx-project
+    ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+2.  **Install dependencies**
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+    ```bash
+    npm install
+    # or pnpm install
+    ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+3.  **Start the development server**
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+    ```bash
+    npm run dev
+    ```
+
+## 🏗 Architecture & Decisions
+
+The project follows **Feature-Sliced Design (FSD)** to ensure maintainability:
+
+- **`app/`**: Application entry point, providers, and global styles.
+- **`pages/`**: Composition layer constructing full views (e.g., `UploadPage`).
+- **`features/`**: User interactions that bring value:
+  - `docx-processing`: Core logic for filling templates and parsing tags.
+  - `file-upload`: Handling file selection and drag-and-drop mechanics.
+- **`entities/`**: Business entities (e.g., `document`) containing domain logic and specific UI cards (`DocInfoCard`).
+- **`shared/`**: Reusable infrastructure code (UI Kit, generic hooks like `useAsync`, and helper libs).
+
+## 🎥 Project Structure
+
+```text
+src/
+  ├── app/                 # Entry point & setup
+  │   └── App.tsx
+  ├── pages/               # Routing pages
+  │   └── UploadPage/      # Main upload interface
+  ├── features/            # User scenarios
+  │   ├── docx-processing/ # Templating logic
+  │   └── file-upload/     # File handling hooks
+  ├── entities/            # Business models
+  │   └── document/        # Doc service & display cards
+  └── shared/              # Reusable components & utils
+      ├── components/      # UI Kit (Buttons, etc.)
+      ├── hooks/           # Generic hooks (useAsync)
+      └── lib/             # Helpers (renderPreview)
